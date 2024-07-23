@@ -2,6 +2,7 @@ import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
 import pg from "pg"
+import cors from "cors";
 
 
 const port = 3000;
@@ -11,11 +12,9 @@ let items = [];
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(cors());
 
-async function getItems () {
-  const result = await db.query("SELECT * FROM wardrobe");
-  items = result.rows
-}
+
 
 const db = new pg.Client({
   user: "postgres",
@@ -26,14 +25,17 @@ const db = new pg.Client({
 });
 db.connect();
 
+async function getItems () {
+  const result = await db.query("SELECT * FROM wardrobe");
+  items = result.rows
+  console.log("found")
+}
+
 app.get("/", async (req,res) => {
   
   try{
     getItems()
     console.log(items)
-    
-
-
   } catch(err) {
     console.log(err);
   }
