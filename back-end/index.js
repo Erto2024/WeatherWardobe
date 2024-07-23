@@ -9,8 +9,13 @@ const app = express();
 
 let items = [];
 
-app.use(bodyParser.urlencoded({extended: ture}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+async function getItems () {
+  const result = await db.query("SELECT * FROM wardrobe");
+  items = result.rows
+}
 
 const db = new pg.Client({
   user: "postgres",
@@ -24,9 +29,9 @@ db.connect();
 app.get("/", async (req,res) => {
   
   try{
-    const result = await db.query("SELECT * FROM wardrobe");
-    items = result.rows;
+    getItems()
     console.log(items)
+    
 
 
   } catch(err) {
@@ -34,9 +39,19 @@ app.get("/", async (req,res) => {
   }
 });
 
+app.get("/setData", async (req,res) =>{
+  try{
+    console.log("Got request")
+    getItems()
+    res.json(items)
+  }catch(e){
+    console.log(e)
+  }
+})
+
 
 app.listen(port,() => {
-  console.log(`The app is running on port ${port}`)
+  console.log(`The app is running on  http://localhost:${port}/`)
 });
 
 
