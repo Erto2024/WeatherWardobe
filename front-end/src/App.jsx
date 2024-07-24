@@ -6,6 +6,8 @@ import Header from './Header';
 import axios from "axios";
 import Card from "./Card"
 
+
+
 function App() {
   const [name, setName] = useState([]);
 
@@ -17,6 +19,7 @@ function App() {
       
       console.log(res.data);
       setName(res.data);
+      
       
     } catch (err) {
       console.log(err);
@@ -36,10 +39,10 @@ function App() {
               name={card.name}
             />
           );
-        })};
+        })}
         <button type='submit'>Please submit</button>
+        <img src= "/images/greenTshirt.webp" alt="Green T-shirt" />
       </form>
-      <img src = ""  />
       <Footer />
     </>
   );

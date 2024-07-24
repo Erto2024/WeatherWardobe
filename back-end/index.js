@@ -3,17 +3,20 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import pg from "pg"
 import cors from "cors";
+import { fileURLToPath } from "url";
+import path from "path";
+
 
 
 const port = 3000;
 const app = express();
 
 let items = [];
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
-
 
 
 const db = new pg.Client({
@@ -28,7 +31,6 @@ db.connect();
 async function getItems () {
   const result = await db.query("SELECT * FROM wardrobe");
   items = result.rows
-  console.log("found")
 }
 
 app.get("/", async (req,res) => {
@@ -36,6 +38,7 @@ app.get("/", async (req,res) => {
   try{
     getItems()
     console.log(items)
+    console.log(__dirname)
   } catch(err) {
     console.log(err);
   }
@@ -43,7 +46,6 @@ app.get("/", async (req,res) => {
 
 app.get("/setData", async (req,res) =>{
   try{
-    console.log("Got request")
     getItems()
     res.json(items)
   }catch(e){
