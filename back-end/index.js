@@ -5,6 +5,7 @@ import pg from "pg"
 import cors from "cors";
 import { fileURLToPath } from "url";
 import path from "path";
+import env from "dotenv";
 
 
 
@@ -17,6 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
+env.config();
 
 
 const db = new pg.Client({

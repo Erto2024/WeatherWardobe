@@ -29,7 +29,8 @@ function App() {
     <>
       <Header />
       <form onSubmit={submit}>
-        <h1>Please type button to show database</h1>
+        <h1>Submit button to watch database items</h1>
+        <div>
         {name.map((card) => {
           console.log(card.photo)
           return (
@@ -38,7 +39,8 @@ function App() {
               name={card.name}
             />
           );
-        })}
+        })} 
+        </div>
         <button type='submit'>Please submit</button>
       </form>
       
