@@ -3,9 +3,8 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import pg from "pg"
 import cors from "cors";
-import { fileURLToPath } from "url";
-import path from "path";
 import env from "dotenv";
+
 
 
 
@@ -13,7 +12,7 @@ const port = 3000;
 const app = express();
 
 let items = [];
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+//const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -40,7 +39,6 @@ app.get("/", async (req,res) => {
   try{
     getItems()
     console.log(items)
-    console.log(__dirname)
   } catch(err) {
     console.log(err);
   }

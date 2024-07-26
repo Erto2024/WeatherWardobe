@@ -2,11 +2,11 @@ import React from "react";
 
 function Card(props) {
   return (
-    <div className = "Card">
-      <h1>{props.name}</h1>
+    <span className="full-card">   
       {console.log(props.location)}
-      <img class="ssds" src={props.location} alt={props.name} />
-    </div>
+      <img className="card" src={props.location} alt={props.name} />
+      <p>{props.name}</p>
+    </span>
   )
 }
 
